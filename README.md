@@ -1,3 +1,6 @@
+
+#Not yet complete.
+# still working on it
 # moneymanagerapptest3
 
 A new Flutter application.
