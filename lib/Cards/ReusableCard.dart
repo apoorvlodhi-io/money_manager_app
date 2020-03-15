@@ -12,7 +12,7 @@ class _ReusableCardState extends State<ReusableCard> {
       height: 100.0,
       width: double.infinity,
       padding: EdgeInsets.all(10.0),
-      margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 20.0),
+      margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
       decoration: BoxDecoration(
           color: Colors.red,
           borderRadius: BorderRadius.all(

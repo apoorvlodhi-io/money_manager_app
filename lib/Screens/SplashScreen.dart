@@ -1,31 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:moneymanagerapptest3/Screens/LoginScreen.dart';
-//import 'package:moneymanagerapptest3/Screens/SplashScreen.dart';
-import 'Screens/MyHomePage.dart';
+import 'package:moneymanagerapptest3/Screens/MyHomePage.dart';
 import 'dart:async';
-import 'package:moneymanagerapptest3/Screens/User_screen.dart';
-import 'package:moneymanagerapptest3/Screens/NotificationScreen.dart';
-
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Money Management',
-      theme: ThemeData(primarySwatch: Colors.grey),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => SplashScreen(),
-        '/MyHomePage': (context) => MyHomePage(),
-        '/NotificationScreen': (context) => NotificationScreen(),
-        '/user_screen': (context) => UserScreen(),
-      },
-    );
-  }
-}
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -37,7 +12,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     Timer(Duration(seconds: 3), () {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => LoginScreen()));
+          context, MaterialPageRoute(builder: (context) => MyHomePage()));
     });
   }
 
