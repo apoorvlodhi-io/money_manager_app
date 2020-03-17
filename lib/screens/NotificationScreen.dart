@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class NotificationScreen extends StatelessWidget {
+  static const String id = 'notifications_screen';
   @override
   Widget build(BuildContext context) {
     return SafeArea(

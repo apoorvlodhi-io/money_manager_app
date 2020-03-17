@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:moneymanagerapptest3/Screens/MyHomePage.dart';
 import 'dart:async';
+import 'package:moneymanagerapptest3/screens/welcome_screen.dart';
 
 class SplashScreen extends StatefulWidget {
+  static const String id = 'splash_screen';
+
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
@@ -12,7 +14,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     Timer(Duration(seconds: 3), () {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => MyHomePage()));
+          context, MaterialPageRoute(builder: (context) => WelcomeScreen()));
     });
   }
 

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "985503457388",
+    "firebase_url": "https://money-manager-app-441bc.firebaseio.com",
+    "project_id": "money-manager-app-441bc",
+    "storage_bucket": "money-manager-app-441bc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:985503457388:android:80554c5552aa64ec9af849",
+        "android_client_info": {
+          "package_name": "com.apoorvlodhi.moneymanagerapptest3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "985503457388-q1574imcq6vedde6qv892ndod20iffd2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCOkCUPp8Ui6ehj5YemKFmr46qgdHYSKs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "985503457388-q1574imcq6vedde6qv892ndod20iffd2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
