@@ -59,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               ListTile(
-                leading: Icon(Icons.notifications_active),
+                leading: Icon(Icons.account_circle),
                 title: Text('About'),
                 onTap: () {
                   // Update the state of the app
@@ -109,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
               ),
               ListTile(
-                leading: Icon(Icons.account_circle),
+                leading: Icon(Icons.exit_to_app),
                 title: Text('Log Out'),
                 onTap: () {
                   // Update the state of the app

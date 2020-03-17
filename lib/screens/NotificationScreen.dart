@@ -12,7 +12,7 @@ class NotificationScreen extends StatelessWidget {
         ),
         body: Center(
           child: RaisedButton(
-            color: Colors.blue,
+            color: Colors.red,
             child: Text('Go Back To Screen 1'),
             onPressed: () {
               Navigator.pop(context);

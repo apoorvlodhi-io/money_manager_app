@@ -24,6 +24,7 @@ class _ChatScreenState extends State<ChatScreen> {
     super.initState();
 
     getCurrentUser();
+    //apoorv
   }
 
   void getCurrentUser() async {
