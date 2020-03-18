@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:moneymanagerapptest3/Cards/ReusableCard.dart';
+import 'package:moneymanagerapptest3/cards/FriendCard.dart';
 
-class UsersList extends StatelessWidget {
+class UsersList extends StatefulWidget {
   const UsersList({
     Key key,
   }) : super(key: key);
 
+  @override
+  _UsersListState createState() => _UsersListState();
+}
+
+class _UsersListState extends State<UsersList> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -27,12 +32,13 @@ class UsersList extends StatelessWidget {
             ]),
         child: ListView(
           children: <Widget>[
-            ReusableCard(),
-            ReusableCard(),
-            ReusableCard(),
-            ReusableCard(),
-            ReusableCard(),
-            ReusableCard(),
+            FriendCard(),
+            FriendCard(),
+            FriendCard(),
+            FriendCard(),
+            FriendCard(),
+            FriendCard(),
+            FriendCard(),
           ],
         ),
       ),

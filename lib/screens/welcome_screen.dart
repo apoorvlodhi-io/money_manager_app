@@ -56,7 +56,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 backgroundImage: Image.network(
                     'https://lh3.googleusercontent.com/YTB4ZfOQpnJUB4F1G7GCoc8J0Y3xfEyLEs07vUotIz6WDkQ1jGIhqmAfnYHICg3NAyI'),
                 onPressed: () {
-                  Navigator.pushNamed(context, MyHomePage.id);
+                  Navigator.pushNamed(context, RegistrationScreen.id);
                 },
               ),
               Divider(),

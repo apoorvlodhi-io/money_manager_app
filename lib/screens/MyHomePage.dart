@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:moneymanagerapptest3/assets/Expenditure.dart';
 import 'package:moneymanagerapptest3/assets/MainMenu.dart';
 import 'package:moneymanagerapptest3/assets/UsersList.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:moneymanagerapptest3/screens/NotificationScreen.dart';
+//import 'package:moneymanagerapptest3/screens/registration_screen.dart';
+import 'package:moneymanagerapptest3/screens/welcome_screen.dart';
+import 'package:moneymanagerapptest3/constants.dart';
 
 class MyHomePage extends StatefulWidget {
   static const String id = 'MyHomePage';
@@ -10,7 +16,36 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+//  final _auth = FirebaseAuth.instance;
+  final _firestore = Firestore.instance;
+  final _auth = FirebaseAuth.instance;
+  FirebaseUser loggedInUser;
+//  final messageTextController = TextEditingController();
+  String messageText;
+  var now = new DateTime.now();
+
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+
+    getCurrentUser();
+  }
+
+  void getCurrentUser() async {
+    try {
+      final user = await _auth.currentUser();
+      if (user != null) {
+        loggedInUser = user;
+
+        print(loggedInUser.email);
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
 //    Color primaryColor = Color.fromRGBO(255, 82, 48, 1);
@@ -49,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text('Apoorv Lodhi'),
+                            Text('loggedInUser.email'),
                             Text('apoorvlodhi05@gmail.com')
                           ],
                         ),
@@ -112,10 +147,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 leading: Icon(Icons.exit_to_app),
                 title: Text('Log Out'),
                 onTap: () {
-                  // Update the state of the app
-                  // ...
-                  // Then close the drawer
+                  _auth.signOut();
                   Navigator.pop(context);
+                  Navigator.pushNamed(context, WelcomeScreen.id);
                 },
               ),
             ],
@@ -165,7 +199,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           color: Colors.white,
                           iconSize: 30.0,
                           onPressed: () {
-                            Navigator.pushNamed(context, '/NotificationScreen');
+                            Navigator.pushNamed(context, NotificationScreen.id);
                           },
                         )
                       ],
@@ -178,8 +212,47 @@ class _MyHomePageState extends State<MyHomePage> {
                 MainMenu(),
 
                 UsersList(),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Container(
+                      decoration: kMessageContainerDecoration,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Expanded(
+                            child: TextField(
+//                              controller: messageTextController,
+                              onChanged: (value) {
+                                messageText = value;
+                              },
+                              decoration: kMessageTextFieldDecoration,
+                            ),
+                          ),
+                          FlatButton(
+                            onPressed: () {
+//                              messageTextController.clear();
+                              _firestore.collection('friendsList').add(
+                                {
+                                  'name': messageText,
+                                  'email': loggedInUser.email,
+                                  'time': now,
+                                },
+                              );
+                            },
+                            child: Text(
+                              'Send',
+                              style: kSendButtonTextStyle,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ],
-            )
+            ),
           ],
         ),
       ),

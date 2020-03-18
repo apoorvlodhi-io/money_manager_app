@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class ReusableCard extends StatefulWidget {
+class FriendCard extends StatefulWidget {
   @override
-  _ReusableCardState createState() => _ReusableCardState();
+  _FriendCardState createState() => _FriendCardState();
 }
 
-class _ReusableCardState extends State<ReusableCard> {
+class _FriendCardState extends State<FriendCard> {
   @override
   Widget build(BuildContext context) {
     return Container(

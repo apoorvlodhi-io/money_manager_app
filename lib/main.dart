@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:moneymanagerapptest3/screens/MyHomePage.dart';
+import 'package:moneymanagerapptest3/screens/NotificationScreen.dart';
 import 'package:moneymanagerapptest3/screens/SplashScreen.dart';
 import 'package:moneymanagerapptest3/screens/login_screen.dart';
 import 'package:moneymanagerapptest3/screens/registration_screen.dart';
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
         LoginScreen.id: (context) => LoginScreen(),
         RegistrationScreen.id: (context) => RegistrationScreen(),
         MyHomePage.id: (context) => MyHomePage(),
+        NotificationScreen.id: (context) => NotificationScreen(),
       },
     );
   }
