@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moneymanagerapptest3/cards/FriendCard.dart';
+import 'package:moneymanagerapptest3/screens/MyHomePage.dart';
 
 class UsersList extends StatefulWidget {
   const UsersList({
@@ -21,8 +22,8 @@ class _UsersListState extends State<UsersList> {
         decoration: BoxDecoration(
             color: Colors.yellow,
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20.0),
-              topRight: Radius.circular(20.0),
+              topLeft: Radius.circular(10.0),
+              topRight: Radius.circular(10.0),
             ),
             boxShadow: [
               BoxShadow(
@@ -30,15 +31,16 @@ class _UsersListState extends State<UsersList> {
                   offset: Offset(0.0, 3.0),
                   blurRadius: 15.0)
             ]),
-        child: ListView(
+        child: Column(
           children: <Widget>[
-            FriendCard(),
-            FriendCard(),
-            FriendCard(),
-            FriendCard(),
-            FriendCard(),
-            FriendCard(),
-            FriendCard(),
+            MessagesStream(),
+//            FriendCard(),
+//            FriendCard(),
+//            FriendCard(),
+//            FriendCard(),
+//            FriendCard(),
+//            FriendCard(),
+//            FriendCard(),
           ],
         ),
       ),

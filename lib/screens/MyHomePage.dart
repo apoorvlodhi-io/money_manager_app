@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+//import 'package:moneymanagerapptest3/screens/chat_screen.dart';
+import "package:share/share.dart";
 import 'package:moneymanagerapptest3/assets/Expenditure.dart';
 import 'package:moneymanagerapptest3/assets/MainMenu.dart';
 import 'package:moneymanagerapptest3/assets/UsersList.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:moneymanagerapptest3/screens/NotificationScreen.dart';
+import 'package:moneymanagerapptest3/screens/about_page.dart';
 //import 'package:moneymanagerapptest3/screens/registration_screen.dart';
 import 'package:moneymanagerapptest3/screens/welcome_screen.dart';
 import 'package:moneymanagerapptest3/constants.dart';
+
+final _firestore = Firestore.instance;
+FirebaseUser loggedInUser;
 
 class MyHomePage extends StatefulWidget {
   static const String id = 'MyHomePage';
@@ -16,12 +22,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-//  final _auth = FirebaseAuth.instance;
-  final _firestore = Firestore.instance;
+  final messageTextController = TextEditingController();
+
   final _auth = FirebaseAuth.instance;
-  FirebaseUser loggedInUser;
-//  final messageTextController = TextEditingController();
+
   String messageText;
+
+//  String loggedInUserEmail = loggedInUser.email;
+
   var now = new DateTime.now();
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -50,6 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
 //    Color primaryColor = Color.fromRGBO(255, 82, 48, 1);
     Color primaryColor = Colors.teal;
+//    final currentUser = loggedInUser.email;
     return SafeArea(
       child: Scaffold(
         key: _scaffoldKey,
@@ -84,8 +93,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text('loggedInUser.email'),
-                            Text('apoorvlodhi05@gmail.com')
+                            Text('Test User Name'),
+                            Text('Test User Email address'),
                           ],
                         ),
                       ),
@@ -100,18 +109,22 @@ class _MyHomePageState extends State<MyHomePage> {
                   // Update the state of the app
                   // ...
                   // Then close the drawer
-                  Navigator.pop(context);
+//                  Navigator.pop(context);
+                  Navigator.pushNamed(context, AboutPage.id);
                 },
               ),
               ListTile(
                 leading: Icon(Icons.share),
                 title: Text('Share'),
-                onTap: () {
-                  // Update the state of the app
-                  // ...
-                  // Then close the drawer
-                  Navigator.pop(context);
-                },
+                onTap: () => Share.share("Check out The History of Everything! " +
+                    ("https://play.google.com/store/apps/details?id=com.twodimensions.timeline")),
+
+//                onTap: () {
+//                  // Update the state of the app
+//                  // ...
+//                  // Then close the drawer
+//                  Navigator.pop(context);
+//                },
               ),
               ListTile(
                 leading: Icon(Icons.star_border),
@@ -212,49 +225,152 @@ class _MyHomePageState extends State<MyHomePage> {
                 MainMenu(),
 
                 UsersList(),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Container(
-                      decoration: kMessageContainerDecoration,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Expanded(
-                            child: TextField(
-//                              controller: messageTextController,
-                              onChanged: (value) {
-                                messageText = value;
-                              },
-                              decoration: kMessageTextFieldDecoration,
-                            ),
-                          ),
-                          FlatButton(
-                            onPressed: () {
-//                              messageTextController.clear();
-                              _firestore.collection('friendsList').add(
-                                {
-                                  'name': messageText,
-                                  'email': loggedInUser.email,
-                                  'time': now,
-                                },
-                              );
-                            },
-                            child: Text(
-                              'Send',
-                              style: kSendButtonTextStyle,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                //Bottom Text Field
+//                Column(
+//                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                  crossAxisAlignment: CrossAxisAlignment.stretch,
+//                  children: <Widget>[
+//                    Container(
+//                      decoration: kMessageContainerDecoration,
+//                      child: Row(
+//                        crossAxisAlignment: CrossAxisAlignment.center,
+//                        children: <Widget>[
+//                          Expanded(
+//                            child: TextField(
+////                              controller: messageTextController,
+//                              onChanged: (value) {
+//                                messageText = value;
+//                              },
+//                              decoration: kMessageTextFieldDecoration,
+//                            ),
+//                          ),
+//                          FlatButton(
+//                            onPressed: () {
+////                              messageTextController.clear();
+//                              _firestore.collection('messages').add(
+//                                {
+//                                  'text': messageText,
+//                                  'sender': loggedInUser.email,
+////                                  'time': now,
+//                                },
+//                              );
+//                            },
+//                            child: Text(
+//                              'Send',
+//                              style: kSendButtonTextStyle,
+//                            ),
+//                          ),
+//                        ],
+//                      ),
+//                    ),
+//                  ],
+//                ),
               ],
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class MessagesStream extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: _firestore.collection('messages').snapshots(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return Center(
+            child: CircularProgressIndicator(
+              backgroundColor: Colors.lightBlueAccent,
+            ),
+          );
+        }
+
+        final messages = snapshot.data.documents;
+
+        List<MessageBubble> messageBubbles = [];
+
+        for (var message in messages) {
+          final messageText = message.data['text'];
+
+          final messageSender = message.data['sender'];
+
+          final currentUser = loggedInUser.email;
+
+          final messageBubble = MessageBubble(
+            sender: messageSender,
+            text: messageText,
+          );
+          messageBubbles.add(messageBubble);
+        }
+
+        return Expanded(
+          child: ListView(
+            padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+            children: messageBubbles,
+          ),
+        );
+      },
+    );
+  }
+}
+
+class MessageBubble extends StatelessWidget {
+  MessageBubble({this.sender, this.text});
+
+  final String sender;
+
+  final String text;
+
+//  final bool isMe;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 100.0,
+      width: double.infinity,
+      padding: EdgeInsets.all(10.0),
+      margin: EdgeInsets.only(top: 10.0),
+      decoration: BoxDecoration(
+          color: Colors.red,
+          borderRadius: BorderRadius.all(
+            Radius.circular(10.0),
+          ),
+          boxShadow: [
+            BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                offset: Offset(0.0, 3.0),
+                blurRadius: 15.0)
+          ]),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              CircleAvatar(
+                radius: 30.0,
+              ),
+              Text(sender),
+            ],
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+              Text('Date: 04-03-2020'),
+              Container(
+                child: Text(
+                  text,
+                  style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ],
+          )
+        ],
       ),
     );
   }
