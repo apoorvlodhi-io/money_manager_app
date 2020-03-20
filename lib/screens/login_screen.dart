@@ -20,7 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.red,
+      backgroundColor: Colors.redAccent,
       body: ModalProgressHUD(
         inAsyncCall: showSpinner,
         child: Padding(
@@ -29,24 +29,33 @@ class _LoginScreenState extends State<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              CircleAvatar(
-                backgroundColor: Colors.white,
-                radius: 50.0,
-                child: Icon(
-                  Icons.account_balance_wallet,
-                  color: Colors.green,
-                  size: 50.0,
+              Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    CircleAvatar(
+                      backgroundColor: Colors.white,
+                      radius: 50.0,
+                      child: Icon(
+                        Icons.account_balance_wallet,
+                        color: Colors.green,
+                        size: 50.0,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Center(
+                        child: Text(
+                          'Money Manager App',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 24.0),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              Text(
-                'Money Manager App',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 24.0),
-              ),
-              SizedBox(
-                height: 48.0,
               ),
               TextField(
                 keyboardType: TextInputType.emailAddress,
@@ -76,9 +85,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 title: 'Log In',
                 colour: Colors.lightBlueAccent,
                 onPressed: () async {
-                  setState(() {
-                    showSpinner = true;
-                  });
+                  if (email != null && password != null) {
+                    setState(() {
+                      showSpinner = true;
+                    });
+                  }
                   try {
                     final user = await _auth.signInWithEmailAndPassword(
                         email: email.trim(), password: password);

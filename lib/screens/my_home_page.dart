@@ -97,6 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 leading: Icon(Icons.account_circle),
                 title: Text('About'),
                 onTap: () {
+                  Navigator.pop(context);
                   Navigator.pushNamed(context, AboutPage.id);
                 },
               ),

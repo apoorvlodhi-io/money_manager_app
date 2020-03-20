@@ -46,12 +46,14 @@ class _SplashScreenState extends State<SplashScreen> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(10.0),
-                      child: Text(
-                        'Money Manager App',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 24.0),
+                      child: Center(
+                        child: Text(
+                          'Money Manager App',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 24.0),
+                        ),
                       ),
                     ),
                   ],
