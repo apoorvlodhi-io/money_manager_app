@@ -3,15 +3,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import "package:share/share.dart";
 
-import 'package:moneymanagerapptest3/assets/Expenditure.dart';
-import 'package:moneymanagerapptest3/assets/MainMenu.dart';
-import 'package:moneymanagerapptest3/assets/UsersList.dart';
-import 'package:moneymanagerapptest3/screens/NotificationScreen.dart';
+import 'package:moneymanagerapptest3/components/expenditure_tab.dart';
+import 'package:moneymanagerapptest3/components/main_menu.dart';
+import 'package:moneymanagerapptest3/components/user_list.dart';
+import 'package:moneymanagerapptest3/screens/notifications_screen.dart';
 import 'package:moneymanagerapptest3/screens/about_page.dart';
 import 'package:moneymanagerapptest3/screens/welcome_screen.dart';
-
-final _firestore = Firestore.instance;
-FirebaseUser loggedInUser;
 
 class MyHomePage extends StatefulWidget {
   static const String id = 'MyHomePage';
@@ -24,9 +21,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final _auth = FirebaseAuth.instance;
 
-  String messageText;
+  FirebaseUser loggedInUser;
 
-//  String loggedInUserEmail = loggedInUser.email;
+  String messageText;
 
   var now = new DateTime.now();
 
@@ -201,106 +198,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class MessagesStream extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-      stream: _firestore.collection('messages').snapshots(),
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return Center(
-            child: CircularProgressIndicator(
-              backgroundColor: Colors.lightBlueAccent,
-            ),
-          );
-        }
-
-        final messages = snapshot.data.documents;
-
-        List<MessageBubble> messageBubbles = [];
-
-        for (var message in messages) {
-          final messageText = message.data['text'];
-
-          final messageSender = message.data['sender'];
-
-//          final currentUser = loggedInUser.email;
-
-          final messageBubble = MessageBubble(
-            sender: messageSender,
-            text: messageText,
-          );
-          messageBubbles.add(messageBubble);
-        }
-
-        return Expanded(
-          child: ListView(
-            padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
-            children: messageBubbles,
-          ),
-        );
-      },
-    );
-  }
-}
-
-class MessageBubble extends StatelessWidget {
-  MessageBubble({this.sender, this.text});
-
-  final String sender;
-
-  final String text;
-
-//  final bool isMe;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 100.0,
-      width: double.infinity,
-      padding: EdgeInsets.all(10.0),
-      margin: EdgeInsets.only(top: 10.0),
-      decoration: BoxDecoration(
-          color: Colors.red,
-          borderRadius: BorderRadius.all(
-            Radius.circular(10.0),
-          ),
-          boxShadow: [
-            BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                offset: Offset(0.0, 3.0),
-                blurRadius: 15.0)
-          ]),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Column(
-            children: <Widget>[
-              CircleAvatar(
-                radius: 30.0,
-              ),
-              Text(sender),
-            ],
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: <Widget>[
-              Text('Date: 04-03-2020'),
-              Container(
-                child: Text(
-                  text,
-                  style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ],
-          )
-        ],
       ),
     );
   }

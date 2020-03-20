@@ -63,12 +63,15 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text(
-                    'By Continuing, you agree to our Terms of Service and Privacy Policy',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 10.0,
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5.0, bottom: 10.0),
+                    child: Text(
+                      'By Continuing, you agree to our Terms of Service and Privacy Policy',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 10.0,
+                      ),
                     ),
                   ),
                 ],
