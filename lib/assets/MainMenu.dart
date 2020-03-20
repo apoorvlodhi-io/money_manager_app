@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:moneymanagerapptest3/screens/add_friend.dart';
 
 class MainMenu extends StatelessWidget {
-  const MainMenu({
-    Key key,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Padding(
