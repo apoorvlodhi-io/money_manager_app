@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-//import 'package:moneymanagerapptest3/screens/chat_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import "package:share/share.dart";
+
 import 'package:moneymanagerapptest3/assets/Expenditure.dart';
 import 'package:moneymanagerapptest3/assets/MainMenu.dart';
 import 'package:moneymanagerapptest3/assets/UsersList.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:moneymanagerapptest3/screens/NotificationScreen.dart';
 import 'package:moneymanagerapptest3/screens/about_page.dart';
-//import 'package:moneymanagerapptest3/screens/registration_screen.dart';
 import 'package:moneymanagerapptest3/screens/welcome_screen.dart';
-import 'package:moneymanagerapptest3/constants.dart';
 
 final _firestore = Firestore.instance;
 FirebaseUser loggedInUser;
@@ -76,10 +74,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-//                    CircleAvatar(
-//
-//                    ),
-
                     Expanded(
                       flex: 2,
                       child: Container(
@@ -106,10 +100,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 leading: Icon(Icons.account_circle),
                 title: Text('About'),
                 onTap: () {
-                  // Update the state of the app
-                  // ...
-                  // Then close the drawer
-//                  Navigator.pop(context);
                   Navigator.pushNamed(context, AboutPage.id);
                 },
               ),
@@ -118,21 +108,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 title: Text('Share'),
                 onTap: () => Share.share("Check out The History of Everything! " +
                     ("https://play.google.com/store/apps/details?id=com.twodimensions.timeline")),
-
-//                onTap: () {
-//                  // Update the state of the app
-//                  // ...
-//                  // Then close the drawer
-//                  Navigator.pop(context);
-//                },
               ),
               ListTile(
                 leading: Icon(Icons.star_border),
                 title: Text('Rate Us'),
                 onTap: () {
-                  // Update the state of the app
-                  // ...
-                  // Then close the drawer
                   Navigator.pop(context);
                 },
               ),
@@ -140,9 +120,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 leading: Icon(Icons.bug_report),
                 title: Text('Report Bug'),
                 onTap: () {
-                  // Update the state of the app
-                  // ...
-                  // Then close the drawer
                   Navigator.pop(context);
                 },
               ),
@@ -150,9 +127,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 leading: Icon(Icons.sms),
                 title: Text('Suggestions'),
                 onTap: () {
-                  // Update the state of the app
-                  // ...
-                  // Then close the drawer
                   Navigator.pop(context);
                 },
               ),
@@ -171,8 +145,6 @@ class _MyHomePageState extends State<MyHomePage> {
         body: Stack(
           children: <Widget>[
             Container(
-//              height: 170.0,
-//              decoration: BoxDecoration(color: primaryColor),
               child: Column(
                 children: <Widget>[
                   Container(
@@ -225,46 +197,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 MainMenu(),
 
                 UsersList(),
-                //Bottom Text Field
-//                Column(
-//                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                  crossAxisAlignment: CrossAxisAlignment.stretch,
-//                  children: <Widget>[
-//                    Container(
-//                      decoration: kMessageContainerDecoration,
-//                      child: Row(
-//                        crossAxisAlignment: CrossAxisAlignment.center,
-//                        children: <Widget>[
-//                          Expanded(
-//                            child: TextField(
-////                              controller: messageTextController,
-//                              onChanged: (value) {
-//                                messageText = value;
-//                              },
-//                              decoration: kMessageTextFieldDecoration,
-//                            ),
-//                          ),
-//                          FlatButton(
-//                            onPressed: () {
-////                              messageTextController.clear();
-//                              _firestore.collection('messages').add(
-//                                {
-//                                  'text': messageText,
-//                                  'sender': loggedInUser.email,
-////                                  'time': now,
-//                                },
-//                              );
-//                            },
-//                            child: Text(
-//                              'Send',
-//                              style: kSendButtonTextStyle,
-//                            ),
-//                          ),
-//                        ],
-//                      ),
-//                    ),
-//                  ],
-//                ),
               ],
             ),
           ],
@@ -297,7 +229,7 @@ class MessagesStream extends StatelessWidget {
 
           final messageSender = message.data['sender'];
 
-          final currentUser = loggedInUser.email;
+//          final currentUser = loggedInUser.email;
 
           final messageBubble = MessageBubble(
             sender: messageSender,

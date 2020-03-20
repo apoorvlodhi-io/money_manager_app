@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:moneymanagerapptest3/components/rounded_button.dart';
-import 'package:moneymanagerapptest3/screens/MyHomePage.dart';
-import '../constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+
+import 'package:moneymanagerapptest3/components/rounded_button.dart';
+import 'package:moneymanagerapptest3/screens/my_home_page.dart';
+import 'package:moneymanagerapptest3/constants.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String id = 'login_screen';

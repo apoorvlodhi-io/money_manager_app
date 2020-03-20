@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:moneymanagerapptest3/screens/MyHomePage.dart';
+import 'package:moneymanagerapptest3/screens/my_home_page.dart';
 import 'package:moneymanagerapptest3/screens/NotificationScreen.dart';
 import 'package:moneymanagerapptest3/screens/SplashScreen.dart';
 import 'package:moneymanagerapptest3/screens/about_page.dart';

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:moneymanagerapptest3/cards/FriendCard.dart';
-import 'package:moneymanagerapptest3/screens/MyHomePage.dart';
+import 'package:moneymanagerapptest3/assets/friend_list_stream.dart';
 
 class UsersList extends StatefulWidget {
   const UsersList({
@@ -16,8 +15,6 @@ class _UsersListState extends State<UsersList> {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-//                    margin: EdgeInsets.only(left: 5.0, right: 5.0, bottom: 1.0),
-//                    padding: EdgeInsets.all(10.0),
         width: double.infinity,
         decoration: BoxDecoration(
             color: Colors.yellow,
@@ -33,14 +30,7 @@ class _UsersListState extends State<UsersList> {
             ]),
         child: Column(
           children: <Widget>[
-            MessagesStream(),
-//            FriendCard(),
-//            FriendCard(),
-//            FriendCard(),
-//            FriendCard(),
-//            FriendCard(),
-//            FriendCard(),
-//            FriendCard(),
+            FriendListStream(),
           ],
         ),
       ),

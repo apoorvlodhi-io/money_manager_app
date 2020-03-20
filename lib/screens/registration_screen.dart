@@ -1,10 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
+
 import 'package:moneymanagerapptest3/components/rounded_button.dart';
 import 'package:moneymanagerapptest3/constants.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:moneymanagerapptest3/screens/MyHomePage.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:moneymanagerapptest3/screens/my_home_page.dart';
 import 'package:moneymanagerapptest3/screens/login_screen.dart';
 
 class RegistrationScreen extends StatefulWidget {

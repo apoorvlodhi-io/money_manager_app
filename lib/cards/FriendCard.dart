@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 
-class FriendCard extends StatefulWidget {
-  @override
-  _FriendCardState createState() => _FriendCardState();
-}
+class FriendCard extends StatelessWidget {
+  FriendCard({this.sender, this.text});
 
-class _FriendCardState extends State<FriendCard> {
+  final String sender;
+
+  final String text;
+
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 100.0,
       width: double.infinity,
       padding: EdgeInsets.all(10.0),
-      margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
+      margin: EdgeInsets.only(top: 10.0),
       decoration: BoxDecoration(
           color: Colors.red,
           borderRadius: BorderRadius.all(
@@ -28,13 +29,15 @@ class _FriendCardState extends State<FriendCard> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               CircleAvatar(
                 radius: 30.0,
               ),
-              Text('APOORV LODHI'),
+              Text(
+                sender.toUpperCase(),
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
             ],
           ),
           Column(
@@ -44,7 +47,7 @@ class _FriendCardState extends State<FriendCard> {
               Text('Date: 04-03-2020'),
               Container(
                 child: Text(
-                  'Rs. 2170000',
+                  '₹' + text,
                   style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold),
                 ),
               ),

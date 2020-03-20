@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moneymanagerapptest3/screens/add_friend.dart';
 
 class MainMenu extends StatelessWidget {
   const MainMenu({
@@ -31,17 +32,17 @@ class MainMenu extends StatelessWidget {
                     children: <Widget>[
                       Material(
                         borderRadius: BorderRadius.circular(100.0),
-                        color: Colors.purple.withOpacity(0.1),
+                        color: Colors.green.withOpacity(0.1),
                         child: IconButton(
                           padding: EdgeInsets.all(15.0),
-                          icon: Icon(Icons.send),
-                          color: Colors.purple,
+                          icon: Icon(Icons.call_received),
+                          color: Colors.green,
                           iconSize: 30.0,
                           onPressed: () {},
                         ),
                       ),
                       SizedBox(height: 8.0),
-                      Text('Send',
+                      Text('Receive',
                           style: TextStyle(
                               color: Colors.black54,
                               fontWeight: FontWeight.bold))
@@ -51,17 +52,17 @@ class MainMenu extends StatelessWidget {
                     children: <Widget>[
                       Material(
                         borderRadius: BorderRadius.circular(100.0),
-                        color: Colors.blue.withOpacity(0.1),
+                        color: Colors.red.withOpacity(0.1),
                         child: IconButton(
                           padding: EdgeInsets.all(15.0),
-                          icon: Icon(Icons.credit_card),
-                          color: Colors.blue,
+                          icon: Icon(Icons.call_made),
+                          color: Colors.red,
                           iconSize: 30.0,
                           onPressed: () {},
                         ),
                       ),
                       SizedBox(height: 8.0),
-                      Text('Pay',
+                      Text('Owe',
                           style: TextStyle(
                               color: Colors.black54,
                               fontWeight: FontWeight.bold))
@@ -74,14 +75,26 @@ class MainMenu extends StatelessWidget {
                         color: Colors.orange.withOpacity(0.1),
                         child: IconButton(
                           padding: EdgeInsets.all(15.0),
-                          icon: Icon(Icons.receipt),
+                          icon: Icon(Icons.add),
                           color: Colors.orange,
                           iconSize: 30.0,
-                          onPressed: () {},
+                          onPressed: () {
+                            showModalBottomSheet(
+                                context: context,
+                                isScrollControlled: true,
+                                builder: (context) => SingleChildScrollView(
+                                        child: Container(
+                                      padding: EdgeInsets.only(
+                                          bottom: MediaQuery.of(context)
+                                              .viewInsets
+                                              .bottom),
+                                      child: AddFriend(),
+                                    )));
+                          },
                         ),
                       ),
                       SizedBox(height: 8.0),
-                      Text('Request',
+                      Text('Add Friend',
                           style: TextStyle(
                               color: Colors.black54,
                               fontWeight: FontWeight.bold))
