@@ -4,7 +4,7 @@ import 'package:moneymanagerapptest3/cards/friend_card.dart';
 
 class FriendListStream extends StatelessWidget {
   final _firestore = Firestore.instance;
-//  FirebaseUser loggedInUser;
+  FirebaseUser loggedInUser;
 
   @override
   Widget build(BuildContext context) {
