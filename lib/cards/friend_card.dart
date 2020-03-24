@@ -47,7 +47,7 @@ class FriendCard extends StatelessWidget {
               Text('Date: 04-03-2020'),
               Container(
                 child: Text(
-                  '₹' + text,
+                  text,
                   style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold),
                 ),
               ),

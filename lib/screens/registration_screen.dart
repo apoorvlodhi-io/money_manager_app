@@ -114,12 +114,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   Navigator.pushNamed(context, LoginScreen.id);
                 },
               ),
-//              RaisedButton(
-//                child: Text('Already have an account, Log In'),
-//                onPressed: () {
-//                  Navigator.pushNamed(context, LoginScreen.id);
-//                },
-//              ),
             ],
           ),
         ),

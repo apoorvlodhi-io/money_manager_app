@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import "package:share/share.dart";
 
 import 'package:moneymanagerapptest3/components/expenditure_tab.dart';
@@ -8,7 +7,6 @@ import 'package:moneymanagerapptest3/components/main_menu.dart';
 import 'package:moneymanagerapptest3/components/user_list.dart';
 import 'package:moneymanagerapptest3/screens/notifications_screen.dart';
 import 'package:moneymanagerapptest3/screens/about_page.dart';
-import 'package:moneymanagerapptest3/screens/welcome_screen.dart';
 
 class MyHomePage extends StatefulWidget {
   static const String id = 'MyHomePage';
@@ -84,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text('Test User Name'),
+                            Text(loggedInUser.toString()),
                             Text('Test User Email address'),
                           ],
                         ),
@@ -133,8 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 title: Text('Log Out'),
                 onTap: () {
                   _auth.signOut();
-                  Navigator.pop(context);
-                  Navigator.pushNamed(context, WelcomeScreen.id);
+                  Navigator.of(context).popUntil((route) => route.isFirst);
                 },
               ),
             ],

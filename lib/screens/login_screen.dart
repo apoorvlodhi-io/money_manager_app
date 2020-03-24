@@ -94,6 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     final user = await _auth.signInWithEmailAndPassword(
                         email: email.trim(), password: password);
                     if (user != null) {
+//                      Navigator.pop(context)
                       Navigator.pushNamed(context, MyHomePage.id);
                     }
                     setState(() {
@@ -101,6 +102,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     });
                   } catch (e) {
                     print(e);
+                    setState(() {
+                      showSpinner = false;
+                    });
                   }
                 },
               ),
