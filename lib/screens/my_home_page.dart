@@ -1,12 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:share/share.dart";
-
+import 'package:moneymanagerapptest3/components/user_details.dart';
+import 'package:moneymanagerapptest3/components/user_list.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:moneymanagerapptest3/components/expenditure_tab.dart';
 import 'package:moneymanagerapptest3/components/main_menu.dart';
 import 'package:moneymanagerapptest3/components/user_list.dart';
 import 'package:moneymanagerapptest3/screens/notifications_screen.dart';
 import 'package:moneymanagerapptest3/screens/about_page.dart';
+import 'package:moneymanagerapptest3/assets/friend_list_stream.dart';
+import 'package:moneymanagerapptest3/screens/chat_screen.dart';
+
+import 'dart:async';
+import 'dart:io';
+
+//import 'package:chat_app/chat_screen.dart';
+//import 'package:chat_app/home_page.dart';
+import '../main.dart';
+//import 'package:chat_app/models/user_details.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class MyHomePage extends StatefulWidget {
   static const String id = 'MyHomePage';
@@ -16,35 +33,34 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final messageTextController = TextEditingController();
-
   final _auth = FirebaseAuth.instance;
-
   FirebaseUser loggedInUser;
-
   String messageText;
-
   var now = new DateTime.now();
-
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  final GoogleSignIn googleSignIn = GoogleSignIn();
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  StreamSubscription<QuerySnapshot> _subscription;
+  List<DocumentSnapshot> usersList;
+  final CollectionReference _collectionReference =
+      Firestore.instance.collection("users");
 
   @override
   void initState() {
     super.initState();
-
-    getCurrentUser();
+    _subscription = _collectionReference.snapshots().listen((datasnapshot) {
+      setState(() {
+        usersList = datasnapshot.documents;
+        print("Users List ${usersList.length}");
+      });
+    });
   }
 
-  void getCurrentUser() async {
-    try {
-      final user = await _auth.currentUser();
-      if (user != null) {
-        loggedInUser = user;
-
-        print(loggedInUser.email);
-      }
-    } catch (e) {
-      print(e);
-    }
+  @override
+  void dispose() {
+    super.dispose();
+    _subscription.cancel();
   }
 
   @override
@@ -73,6 +89,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       flex: 2,
                       child: Container(
                         child: CircleAvatar(
+//                          backgroundImage:
+//                              NetworkImage(user.photoUrl),
                           maxRadius: 30.0,
                         ),
                       ),
@@ -129,9 +147,14 @@ class _MyHomePageState extends State<MyHomePage> {
               ListTile(
                 leading: Icon(Icons.exit_to_app),
                 title: Text('Log Out'),
-                onTap: () {
-                  _auth.signOut();
-                  Navigator.of(context).popUntil((route) => route.isFirst);
+                onTap: () async {
+                  await firebaseAuth.signOut();
+                  await googleSignIn.disconnect();
+                  await googleSignIn.signOut();
+                  print("Signed Out");
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (context) => MyApp()),
+                      (Route<dynamic> route) => false);
                 },
               ),
             ],
@@ -156,6 +179,8 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Column(
+//              mainAxisAlignment: MainAxisAlignment.center,
+//              crossAxisAlignment: ,
               children: <Widget>[
                 Container(
                   width: double.infinity,
@@ -190,8 +215,66 @@ class _MyHomePageState extends State<MyHomePage> {
                 Expenditure(),
 
                 MainMenu(),
-
-                UsersList(),
+                Expanded(
+                  child: Container(
+                    child: ListView.builder(
+                      itemCount: usersList.length,
+                      itemBuilder: ((context, index) {
+                        return Column(
+                          children: <Widget>[
+                            Divider(),
+//                            if()
+//                              {
+                            ListTile(
+                              leading: CircleAvatar(
+                                backgroundImage: NetworkImage(
+                                    usersList[index].data['photoUrl']),
+                              ),
+                              trailing: Text(
+                                '217',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              title: Text(
+                                usersList[index].data['name'],
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              subtitle: Text(
+                                usersList[index].data['emailId'],
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              onTap: (() {
+                                Navigator.push(
+                                  context,
+                                  new MaterialPageRoute(
+                                    builder: (context) => ChatScreen(
+                                        name: usersList[index].data['name'],
+                                        photoUrl:
+                                            usersList[index].data['photoUrl'],
+                                        receiverUid:
+                                            usersList[index].data['uid']),
+                                  ),
+                                );
+                              }),
+                              onLongPress: (() {
+                                Navigator.pushNamed(context, AboutPage.id);
+                              }),
+                            ),
+//                              }
+                          ],
+                        );
+                      }),
+                    ),
+                  ),
+                ),
               ],
             ),
           ],

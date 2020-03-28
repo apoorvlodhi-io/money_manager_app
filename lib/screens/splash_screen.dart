@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'dart:async';
+
+import 'package:moneymanagerapptest3/screens/my_home_page.dart';
 import 'package:moneymanagerapptest3/screens/welcome_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -12,9 +16,9 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    Timer(Duration(seconds: 3), () {
+    Timer(Duration(seconds: 5), () {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => WelcomeScreen()));
+          context, MaterialPageRoute(builder: (context) => SignInCheck()));
     });
   }
 
@@ -76,5 +80,42 @@ class _SplashScreenState extends State<SplashScreen> {
         ],
       ),
     );
+  }
+}
+
+class SignInCheck extends StatefulWidget {
+  @override
+  SignInCheckState createState() {
+    return new SignInCheckState();
+  }
+}
+
+class SignInCheckState extends State<SignInCheck> {
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  bool isLoggedIn = false;
+
+  void isSignedIn() async {
+    if (await _googleSignIn.isSignedIn()) {
+      setState(() {
+        isLoggedIn = true;
+      });
+    } else {
+      setState(() {
+        isLoggedIn = false;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    isSignedIn();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return isLoggedIn == true ? MyHomePage() : WelcomeScreen();
+//    return MyHomePage();
   }
 }

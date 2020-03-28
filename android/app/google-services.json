@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "985503457388-8e8ussihfvt8d1vmh0lr4b28vl8t7ps2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.apoorvlodhi.moneymanagerapptest3",
+            "certificate_hash": "383d204a25403e0f3ea3367f3db49166086bc313"
+          }
+        },
+        {
           "client_id": "985503457388-q1574imcq6vedde6qv892ndod20iffd2.apps.googleusercontent.com",
           "client_type": 3
         }

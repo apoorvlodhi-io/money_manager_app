@@ -36,7 +36,9 @@ dependencies:
 #  Google SignIn
   google_sign_in: ^4.1.4
 #  rx dart
-  rxdart: ^0.23.1
+  rxdart: ^0.21.0
+  firebase_storage:
+  image_picker:
 
 
 
