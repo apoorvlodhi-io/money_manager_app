@@ -39,6 +39,7 @@ dependencies:
   rxdart: ^0.21.0
   firebase_storage:
   image_picker:
+  english_words:
 
 
 

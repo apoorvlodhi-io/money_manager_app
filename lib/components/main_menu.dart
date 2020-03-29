@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moneymanagerapptest3/screens/add_friend.dart';
+import 'package:moneymanagerapptest3/screens/search_users_screen.dart';
 
 class MainMenu extends StatelessWidget {
   @override
@@ -75,17 +76,7 @@ class MainMenu extends StatelessWidget {
                           color: Colors.orange,
                           iconSize: 30.0,
                           onPressed: () {
-                            showModalBottomSheet(
-                                context: context,
-                                isScrollControlled: true,
-                                builder: (context) => SingleChildScrollView(
-                                        child: Container(
-                                      padding: EdgeInsets.only(
-                                          bottom: MediaQuery.of(context)
-                                              .viewInsets
-                                              .bottom),
-                                      child: AddFriend(),
-                                    )));
+                            Navigator.pushNamed(context, SeachAppBarRecipe.id);
                           },
                         ),
                       ),

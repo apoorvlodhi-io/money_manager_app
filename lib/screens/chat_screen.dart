@@ -133,7 +133,7 @@ class _ChatScreenState extends State<ChatScreen> {
             child: IconButton(
               splashColor: Colors.white,
               icon: Icon(
-                Icons.camera_alt,
+                Icons.receipt,
                 color: Colors.black,
               ),
               onPressed: () {
@@ -272,12 +272,12 @@ class _ChatScreenState extends State<ChatScreen> {
             .collection('messages')
             .document(_senderuid)
             .collection(widget.receiverUid)
-            .orderBy('timestamp', descending: false)
+            .orderBy('timestamp', descending: true)
             .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return Center(
-              child: CircularProgressIndicator(),
+              child: Text('No messages FOUND!!'),
             );
           } else {
             listItem = snapshot.data.documents;
