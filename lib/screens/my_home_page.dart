@@ -36,11 +36,14 @@ class _MyHomePageState extends State<MyHomePage> {
   final _auth = FirebaseAuth.instance;
   FirebaseUser loggedInUser;
   String messageText;
+  String activeUserUid;
+  String activeUserPhotoUrl, activeUserName, activeUserEmail;
   var now = new DateTime.now();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   final GoogleSignIn googleSignIn = GoogleSignIn();
-  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
   StreamSubscription<QuerySnapshot> _subscription;
   List<DocumentSnapshot> usersList;
   final CollectionReference _collectionReference =
@@ -49,6 +52,19 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
+    getUID().then((user) {
+      setState(() {
+        activeUserUid = user.uid;
+        print("activeUser uid : $activeUserUid");
+        getactiveUserPhotoUrl(activeUserUid).then((snapshot) {
+          setState(() {
+            activeUserPhotoUrl = snapshot['photoUrl'];
+            activeUserName = snapshot['name'];
+            activeUserEmail = snapshot['emailId'];
+          });
+        });
+      });
+    });
     _subscription = _collectionReference.snapshots().listen((datasnapshot) {
       setState(() {
         usersList = datasnapshot.documents;
@@ -85,25 +101,20 @@ class _MyHomePageState extends State<MyHomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Expanded(
-                      flex: 2,
-                      child: Container(
-                        child: CircleAvatar(
-//                          backgroundImage:
-//                              NetworkImage(user.photoUrl),
-                          maxRadius: 30.0,
-                        ),
+                    Container(
+                      child: CircleAvatar(
+                        backgroundImage: NetworkImage(activeUserPhotoUrl),
+                        radius: 30.0,
                       ),
                     ),
-                    Expanded(
-                      child: Container(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(loggedInUser.toString()),
-                            Text('Test User Email address'),
-                          ],
-                        ),
+                    Container(
+                      child: Column(
+//                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(activeUserName.toUpperCase()),
+                          Text(activeUserEmail),
+                        ],
                       ),
                     ),
                   ],
@@ -148,7 +159,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 leading: Icon(Icons.exit_to_app),
                 title: Text('Log Out'),
                 onTap: () async {
-                  await firebaseAuth.signOut();
+                  await _firebaseAuth.signOut();
                   await googleSignIn.disconnect();
                   await googleSignIn.signOut();
                   print("Signed Out");
@@ -223,15 +234,14 @@ class _MyHomePageState extends State<MyHomePage> {
                         return Column(
                           children: <Widget>[
                             Divider(),
-//                            if()
-//                              {
+//                            if(usersList[index].data['uid'] != activeUserUid){}
                             ListTile(
                               leading: CircleAvatar(
                                 backgroundImage: NetworkImage(
                                     usersList[index].data['photoUrl']),
                               ),
                               trailing: Text(
-                                '217',
+                                '₹' + '217',
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 20.0,
@@ -268,7 +278,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                 Navigator.pushNamed(context, AboutPage.id);
                               }),
                             ),
-//                              }
                           ],
                         );
                       }),
@@ -281,5 +290,16 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
+  }
+
+  Future<FirebaseUser> getUID() async {
+    FirebaseUser user = await _firebaseAuth.currentUser();
+    return user;
+  }
+
+  Future<DocumentSnapshot> getactiveUserPhotoUrl(String uid) {
+    var activeUserDocumentSnapshot =
+        Firestore.instance.collection('users').document(uid).get();
+    return activeUserDocumentSnapshot;
   }
 }

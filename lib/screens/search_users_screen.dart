@@ -13,8 +13,6 @@ class SeachAppBarRecipe extends StatefulWidget {
   _SearchAppBarRecipeState createState() => _SearchAppBarRecipeState();
 }
 
-
-
 class _SearchAppBarRecipeState extends State<SeachAppBarRecipe> {
   final List<String> kWords;
   _SearchAppBarDelegate _searchDelegate;

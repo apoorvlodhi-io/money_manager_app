@@ -8,6 +8,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+//import 'package:moneymanagerapptest3/mohak/models/transaction_message.dart';
+//import 'package:moneymanagerapptest3/screens/add_transaction_screen.dart';
 
 class ChatScreen extends StatefulWidget {
   String name;
@@ -20,6 +22,7 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   Message _message;
+
   var _formKey = GlobalKey<FormState>();
   var map = Map<String, dynamic>();
   CollectionReference _collectionReference;
@@ -35,6 +38,9 @@ class _ChatScreenState extends State<ChatScreen> {
   File imageFile;
   StorageReference _storageReference;
   TextEditingController _messageController;
+
+  String description;
+  int amount;
 
   @override
   void initState() {
@@ -116,7 +122,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     ChatInputWidget(),
                     SizedBox(
                       height: 10.0,
-                    )
+                    ),
                   ],
                 ),
         ));
@@ -171,6 +177,32 @@ class _ChatScreenState extends State<ChatScreen> {
                 if (_formKey.currentState.validate()) {
                   sendMessage();
                 }
+              },
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 4.0),
+            child: IconButton(
+              splashColor: Colors.white,
+              icon: Icon(
+                Icons.add,
+                color: Colors.black,
+              ),
+              onPressed: () {
+                showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  builder: (context) => SingleChildScrollView(
+                    child: Container(
+                      padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).viewInsets.bottom),
+                      child: AddTransactionScreen(),
+                    ),
+                  ),
+                );
+//                if (_formKey.currentState.validate()) {
+//                  sendTransaction();
+//                }
               },
             ),
           )
@@ -247,6 +279,24 @@ class _ChatScreenState extends State<ChatScreen> {
     addMessageToDb(_message);
   }
 
+//  void sendTransaction() async {
+//    print("Inside send message");
+//    var text = _messageController.text;
+////    print(text);
+//    _message = Message(
+//        receiverUid: widget.receiverUid,
+//        senderUid: _senderuid,
+//        amount: amount,
+//        description: text,
+//        timestamp: FieldValue.serverTimestamp(),
+//        type: 'text');
+////    print(
+////        "receiverUid: ${widget.receiverUid} , senderUid : ${_senderuid} , message: ${text}");
+////    print(
+////        "timestamp: ${DateTime.now().millisecond}, type: ${text != null ? 'text' : 'image'}");
+//    addMessageToDb(_message);
+//  }
+
   Future<FirebaseUser> getUID() async {
     FirebaseUser user = await _firebaseAuth.currentUser();
     return user;
@@ -302,25 +352,24 @@ class _ChatScreenState extends State<ChatScreen> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.all(12.0),
+          padding: const EdgeInsets.only(top: 12.0, bottom: 12.0),
           child: Row(
             mainAxisAlignment: snapshot['senderUid'] == _senderuid
                 ? MainAxisAlignment.end
                 : MainAxisAlignment.start,
             children: <Widget>[
-//
               Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
                   snapshot['senderUid'] == _senderuid
-                      ? new Text(
+                      ? Text(
                           senderName == null ? "" : senderName,
                           style: TextStyle(
                             color: Colors.grey,
                             fontSize: 10.0,
                           ),
                         )
-                      : new Text(
+                      : Text(
                           receiverName == null ? "" : receiverName,
                           style: TextStyle(
                             color: Colors.grey,
@@ -362,4 +411,78 @@ class _ChatScreenState extends State<ChatScreen> {
       ],
     );
   }
+
+  Widget AddTransactionScreen() {
+//  String description;
+//  int amount;
+//  @override
+//  Widget build(BuildContext context) {
+//    String newTaskTitle;
+
+    return Container(
+      color: Color(0xff757575),
+      child: Container(
+        padding: EdgeInsets.all(20.0),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20.0),
+            topRight: Radius.circular(20.0),
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Text(
+              'Add Transaction',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 30.0,
+                color: Colors.lightBlueAccent,
+              ),
+            ),
+            TextField(
+              autofocus: true,
+//              keyboardType: TextInputType.number,
+//              inputFormatters: <TextInputFormatter>[
+//                WhitelistingTextInputFormatter.digitsOnly
+//              ],
+              keyboardType: TextInputType.numberWithOptions(),
+              decoration: InputDecoration(hintText: 'Amount'),
+              textAlign: TextAlign.center,
+              onChanged: (value) {
+                amount = value as int;
+              },
+            ),
+            TextField(
+              autofocus: true,
+              decoration: InputDecoration(hintText: 'Description'),
+              textAlign: TextAlign.center,
+              onChanged: (newText) {
+                description = newText;
+              },
+            ),
+            FlatButton(
+              child: Text(
+                'Add',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              color: Colors.lightBlueAccent,
+              onPressed: () {
+//                if (_formKey.currentState.validate()) {
+//                  sendTransaction();
+//                }
+//                Provider.of<TaskData>(context).addTask(newTaskTitle);
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
+
+//}
