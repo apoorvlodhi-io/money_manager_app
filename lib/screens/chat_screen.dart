@@ -40,7 +40,7 @@ class _ChatScreenState extends State<ChatScreen> {
   TextEditingController _messageController;
 
   String description;
-  int amount;
+  String amount;
 
   @override
   void initState() {
@@ -135,7 +135,7 @@ class _ChatScreenState extends State<ChatScreen> {
       child: Row(
         children: <Widget>[
           Container(
-            margin: const EdgeInsets.symmetric(horizontal: 4.0),
+//            margin: const EdgeInsets.symmetric(horizontal: 4.0),
             child: IconButton(
               splashColor: Colors.white,
               icon: Icon(
@@ -156,17 +156,19 @@ class _ChatScreenState extends State<ChatScreen> {
               },
               controller: _messageController,
               decoration: InputDecoration(
-                  hintText: "Enter message...",
-                  labelText: "Message",
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0))),
+                hintText: "Enter message...",
+                labelText: "Message",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
+              ),
               onFieldSubmitted: (value) {
                 _messageController.text = value;
               },
             ),
           ),
           Container(
-            margin: const EdgeInsets.symmetric(horizontal: 4.0),
+//            margin: const EdgeInsets.symmetric(horizontal: 4.0),
             child: IconButton(
               splashColor: Colors.white,
               icon: Icon(
@@ -174,12 +176,13 @@ class _ChatScreenState extends State<ChatScreen> {
                 color: Colors.black,
               ),
               onPressed: () {
-                if (_formKey.currentState.validate()) {
-                  sendMessage();
-                }
+//                if (_formKey.currentState.validate()) {
+//                  sendMessage();
+//                }
               },
             ),
           ),
+          VerticalDivider(),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 4.0),
             child: IconButton(
@@ -200,9 +203,6 @@ class _ChatScreenState extends State<ChatScreen> {
                     ),
                   ),
                 );
-//                if (_formKey.currentState.validate()) {
-//                  sendTransaction();
-//                }
               },
             ),
           )
@@ -262,13 +262,14 @@ class _ChatScreenState extends State<ChatScreen> {
     });
   }
 
-  void sendMessage() async {
+  void sendMessage(String amount) async {
     print("Inside send message");
     var text = _messageController.text;
     print(text);
     _message = Message(
         receiverUid: widget.receiverUid,
         senderUid: _senderuid,
+        amount: amount,
         message: text,
         timestamp: FieldValue.serverTimestamp(),
         type: 'text');
@@ -377,12 +378,23 @@ class _ChatScreenState extends State<ChatScreen> {
                           ),
                         ),
                   snapshot['type'] == 'text'
-                      ? Text(
-                          snapshot['message'],
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.bold),
+                      ? Row(
+                          children: <Widget>[
+                            Text(
+                              snapshot['amount'],
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              snapshot['message'],
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.bold),
+                            )
+                          ],
                         )
                       : InkWell(
                           onTap: (() {
@@ -413,8 +425,8 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Widget AddTransactionScreen() {
-//  String description;
-//  int amount;
+//    String description;
+//    int amount;
 //  @override
 //  Widget build(BuildContext context) {
 //    String newTaskTitle;
@@ -443,23 +455,29 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
             TextField(
               autofocus: true,
-//              keyboardType: TextInputType.number,
+//              controller: _messageController,
+
+              decoration: InputDecoration(hintText: 'Amount'),
+              textAlign: TextAlign.center,
 //              inputFormatters: <TextInputFormatter>[
 //                WhitelistingTextInputFormatter.digitsOnly
 //              ],
-              keyboardType: TextInputType.numberWithOptions(),
-              decoration: InputDecoration(hintText: 'Amount'),
-              textAlign: TextAlign.center,
               onChanged: (value) {
-                amount = value as int;
+                amount = value;
               },
             ),
-            TextField(
+            TextFormField(
+              validator: (String input) {
+                if (input.isEmpty) {
+                  return "Please enter message";
+                }
+              },
               autofocus: true,
+              controller: _messageController,
               decoration: InputDecoration(hintText: 'Description'),
               textAlign: TextAlign.center,
-              onChanged: (newText) {
-                description = newText;
+              onFieldSubmitted: (value) {
+                _messageController.text = value;
               },
             ),
             FlatButton(
@@ -470,12 +488,17 @@ class _ChatScreenState extends State<ChatScreen> {
                 ),
               ),
               color: Colors.lightBlueAccent,
+//              onPressed: () {
+////                if (_formKey.currentState.validate()) {
+////                  sendTransaction();
+////                }
+////                Provider.of<TaskData>(context).addTask(newTaskTitle);
+//                Navigator.pop(context);
+//              },
               onPressed: () {
-//                if (_formKey.currentState.validate()) {
-//                  sendTransaction();
-//                }
-//                Provider.of<TaskData>(context).addTask(newTaskTitle);
-                Navigator.pop(context);
+                if (_formKey.currentState.validate()) {
+                  sendMessage(amount);
+                }
               },
             ),
           ],

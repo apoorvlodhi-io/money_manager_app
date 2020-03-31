@@ -37,7 +37,10 @@ class _MyHomePageState extends State<MyHomePage> {
   FirebaseUser loggedInUser;
   String messageText;
   String activeUserUid;
-  String activeUserPhotoUrl, activeUserName, activeUserEmail;
+  String activeUserPhotoUrl;
+  String activeUserName;
+  String activeUserEmail;
+  String emptyString = " ";
   var now = new DateTime.now();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
@@ -90,7 +93,6 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Color.fromRGBO(244, 244, 244, 1),
         drawer: Drawer(
           child: ListView(
-            // Important: Remove any padding from the ListView.
             padding: EdgeInsets.zero,
             children: <Widget>[
               DrawerHeader(
@@ -103,17 +105,22 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: <Widget>[
                     Container(
                       child: CircleAvatar(
-                        backgroundImage: NetworkImage(activeUserPhotoUrl),
+                        backgroundImage: activeUserPhotoUrl != null
+                            ? NetworkImage(activeUserPhotoUrl)
+                            : AssetImage('assets/blankimage.png'),
                         radius: 30.0,
                       ),
                     ),
                     Container(
                       child: Column(
-//                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(activeUserName.toUpperCase()),
-                          Text(activeUserEmail),
+                          activeUserName != null
+                              ? Text(activeUserName.toUpperCase())
+                              : Text(emptyString),
+                          activeUserEmail != null
+                              ? Text(activeUserEmail)
+                              : Text(emptyString),
                         ],
                       ),
                     ),

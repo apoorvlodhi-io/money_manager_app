@@ -5,6 +5,7 @@ class Message {
   String receiverUid;
   String type;
   String message;
+  String amount;
   FieldValue timestamp;
   String photoUrl;
 
@@ -13,11 +14,13 @@ class Message {
       this.receiverUid,
       this.type,
       this.message,
+      this.amount,
       this.timestamp});
   Message.withoutMessage(
       {this.senderUid,
       this.receiverUid,
       this.type,
+      this.amount,
       this.timestamp,
       this.photoUrl});
 
@@ -27,7 +30,7 @@ class Message {
     map['receiverUid'] = this.receiverUid;
     map['type'] = this.type;
     map['message'] = this.message;
-//    map['amount'] = this.message;
+    map['amount'] = this.amount;
 //    map['description'] = this.message;
     map['timestamp'] = this.timestamp;
     return map;
