@@ -352,74 +352,172 @@ class _ChatScreenState extends State<ChatScreen> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.only(top: 12.0, bottom: 12.0),
-          child: Row(
-            mainAxisAlignment: snapshot['senderUid'] == _senderuid
-                ? MainAxisAlignment.end
-                : MainAxisAlignment.start,
-            children: <Widget>[
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: <Widget>[
-                  snapshot['senderUid'] == _senderuid
-                      ? Text(
-                          senderName == null ? "" : senderName,
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 10.0,
-                          ),
-                        )
-                      : Text(
-                          receiverName == null ? "" : receiverName,
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 10.0,
-                          ),
-                        ),
-                  snapshot['type'] == 'text'
-                      ? Row(
+        snapshot['type'] == 'text'
+            ? Padding(
+                padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                child: Container(
+                  height: 80.0,
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10.0),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Text(
-                              snapshot['amount'],
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              snapshot['message'],
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.bold),
+                            Row(
+                              children: <Widget>[
+                                CircleAvatar(),
+                                SizedBox(
+                                  width: 20.0,
+                                ),
+                                Text(
+                                  '₹' + snapshot['amount'],
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 25.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
                             )
                           ],
-                        )
-                      : InkWell(
-                          onTap: (() {
-                            Navigator.push(
-                                context,
-                                new MaterialPageRoute(
-                                    builder: (context) => FullScreenImage(
-                                          photoUrl: snapshot['photoUrl'],
-                                        )));
-                          }),
-                          child: Hero(
-                            tag: snapshot['photoUrl'],
-                            child: FadeInImage(
-                              image: NetworkImage(snapshot['photoUrl']),
-                              placeholder: AssetImage('assets/blankimage.png'),
-                              width: 200.0,
-                              height: 200.0,
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: <Widget>[
+                            Text(
+                              'Date:',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.bold),
                             ),
-                          ),
+                            Wrap(
+                              children: <Widget>[
+                                Text(
+                                  snapshot['message'].toString(),
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ],
                         )
+                      ],
+                    ),
+                  ),
+                ),
+              )
+            : Row(
+//                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    'Receipt:',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold),
+                  ),
+//                  Icon(Icons.arrow_forward),
+                  InkWell(
+                    onTap: (() {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => FullScreenImage(
+                                    photoUrl: snapshot['photoUrl'],
+                                  )));
+                    }),
+                    child: Hero(
+                      tag: snapshot['photoUrl'],
+                      child: FadeInImage(
+                        image: NetworkImage(snapshot['photoUrl']),
+                        placeholder: AssetImage('assets/blankimage.png'),
+                        width: 200.0,
+                        height: 200.0,
+                      ),
+                    ),
+                  )
                 ],
               )
-            ],
-          ),
-        ),
+//        Padding(
+//          padding: const EdgeInsets.only(top: 12.0, bottom: 12.0),
+//          child: Row(
+//            mainAxisAlignment: snapshot['senderUid'] == _senderuid
+//                ? MainAxisAlignment.end
+//                : MainAxisAlignment.start,
+//            children: <Widget>[
+//              Column(
+//                crossAxisAlignment: CrossAxisAlignment.end,
+//                children: <Widget>[
+//                  snapshot['senderUid'] == _senderuid
+//                      ? Text(
+//                          senderName == null ? "" : senderName,
+//                          style: TextStyle(
+//                            color: Colors.grey,
+//                            fontSize: 10.0,
+//                          ),
+//                        )
+//                      : Text(
+//                          receiverName == null ? "" : receiverName,
+//                          style: TextStyle(
+//                            color: Colors.grey,
+//                            fontSize: 10.0,
+//                          ),
+//                        ),
+//                  snapshot['type'] == 'text'
+//                      ? Row(
+//                          children: <Widget>[
+//                            Text(
+//                              snapshot['amount'],
+//                              style: TextStyle(
+//                                  color: Colors.black,
+//                                  fontSize: 16.0,
+//                                  fontWeight: FontWeight.bold),
+//                            ),
+//                            Text(
+//                              snapshot['message'],
+//                              style: TextStyle(
+//                                  color: Colors.black,
+//                                  fontSize: 16.0,
+//                                  fontWeight: FontWeight.bold),
+//                            )
+//                          ],
+//                        )
+//                      : InkWell(
+//                          onTap: (() {
+//                            Navigator.push(
+//                                context,
+//                                new MaterialPageRoute(
+//                                    builder: (context) => FullScreenImage(
+//                                          photoUrl: snapshot['photoUrl'],
+//                                        )));
+//                          }),
+//                          child: Hero(
+//                            tag: snapshot['photoUrl'],
+//                            child: FadeInImage(
+//                              image: NetworkImage(snapshot['photoUrl']),
+//                              placeholder: AssetImage('assets/blankimage.png'),
+//                              width: 200.0,
+//                              height: 200.0,
+//                            ),
+//                          ),
+//                        )
+//                ],
+//              )
+//            ],
+//          ),
+//        ),
       ],
     );
   }
@@ -443,17 +541,37 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
         ),
         child: Column(
+//          mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Text(
-              'Add Transaction',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 30.0,
-                color: Colors.lightBlueAccent,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                Expanded(
+                  flex: 10,
+                  child: Text(
+                    'Add New Transaction',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 30.0,
+                      color: Colors.lightBlueAccent,
+                    ),
+                  ),
+                ),
+                IconButton(
+                    iconSize: 15.0,
+                    icon: Icon(Icons.close),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    })
+              ],
             ),
-            TextField(
+            TextFormField(
+              validator: (String input) {
+                if (input.isEmpty) {
+                  return "Please enter message";
+                }
+              },
               autofocus: true,
 //              controller: _messageController,
 
@@ -488,17 +606,11 @@ class _ChatScreenState extends State<ChatScreen> {
                 ),
               ),
               color: Colors.lightBlueAccent,
-//              onPressed: () {
-////                if (_formKey.currentState.validate()) {
-////                  sendTransaction();
-////                }
-////                Provider.of<TaskData>(context).addTask(newTaskTitle);
-//                Navigator.pop(context);
-//              },
               onPressed: () {
                 if (_formKey.currentState.validate()) {
                   sendMessage(amount);
                 }
+                Navigator.pop(context);
               },
             ),
           ],

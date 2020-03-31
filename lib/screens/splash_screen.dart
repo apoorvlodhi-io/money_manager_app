@@ -6,8 +6,9 @@ import 'dart:async';
 import 'package:moneymanagerapptest3/screens/my_home_page.dart';
 import 'package:moneymanagerapptest3/screens/welcome_screen.dart';
 
+//StatelessWidget
 class SplashScreen extends StatefulWidget {
-  static const String id = 'splash_screen';
+//  static const String id = 'splash_screen';
 
   @override
   _SplashScreenState createState() => _SplashScreenState();

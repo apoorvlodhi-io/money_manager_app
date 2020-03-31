@@ -48,7 +48,8 @@ class _MyHomePageState extends State<MyHomePage> {
   FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   StreamSubscription<QuerySnapshot> _subscription;
-  List<DocumentSnapshot> usersList;
+  List<DocumentSnapshot> usersList = [];
+
   final CollectionReference _collectionReference =
       Firestore.instance.collection("users");
 
