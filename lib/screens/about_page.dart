@@ -180,7 +180,7 @@ class AboutPage extends StatelessWidget {
                     child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Image.asset("images/flutter_logo.png",
+                          Image.asset("assets/flutter_logo.png",
                               height: 45.0, width: 37.0),
                           Container(
                             margin: const EdgeInsets.only(left: 5.0),

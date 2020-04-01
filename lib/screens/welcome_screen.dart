@@ -128,8 +128,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               WelcomeScreenButton(
                 title: 'Continue with Google',
                 colour: Colors.white,
-                backgroundImage: Image.network(
-                    'https://pngimg.com/uploads/google/google_PNG19635.png'),
+                backgroundImage: Image.asset('assets/google_logo.png'),
+//                backgroundImage: Image.network(
+//                    'https://pngimg.com/uploads/google/google_PNG19635.png'),
 //                onPressed: () => authService.googleSignIn(),
                 onPressed: () {
                   signIn().then((FirebaseUser user) {
@@ -140,15 +141,16 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               WelcomeScreenButton(
                   title: 'Continue with Facebook',
                   colour: Colors.white,
-                  backgroundImage: Image.network(
-                      'https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png'),
+                  backgroundImage: Image.asset('assets/Facebook_Logo.png'),
+//                  backgroundImage: Image.network(
+//                      'https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png'),
                   onPressed: () {}),
               WelcomeScreenButton(
                 title: 'Continue with Email',
                 colour: Colors.white,
-//                backgroundImage: Image.asset('images/email_logo.png'),
-                backgroundImage: Image.network(
-                    'https://lh3.googleusercontent.com/YTB4ZfOQpnJUB4F1G7GCoc8J0Y3xfEyLEs07vUotIz6WDkQ1jGIhqmAfnYHICg3NAyI'),
+                backgroundImage: Image.asset('assets/email_logo.png'),
+//                backgroundImage: Image.network(
+//                    'https://lh3.googleusercontent.com/YTB4ZfOQpnJUB4F1G7GCoc8J0Y3xfEyLEs07vUotIz6WDkQ1jGIhqmAfnYHICg3NAyI'),
                 onPressed: () {
                   Navigator.pushNamed(context, RegistrationScreen.id);
                 },

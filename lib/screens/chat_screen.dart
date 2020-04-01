@@ -349,6 +349,9 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Widget buildChatLayout(DocumentSnapshot snapshot) {
+//    var timeStamp = snapshot['timestamp'];
+//    var messageDateTime = DateTime.parse(timeStamp.toDate().toString());
+//    var dateOnly = messageDateTime.toString().substring(0, 10);
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
@@ -388,29 +391,36 @@ class _ChatScreenState extends State<ChatScreen> {
                             )
                           ],
                         ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: <Widget>[
-                            Text(
-                              'Date:',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            Wrap(
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 15.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.end,
                               children: <Widget>[
                                 Text(
-                                  snapshot['message'].toString(),
+                                  'Date: '
+//                                  + '$dateOnly',
+                                  ,
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 16.0,
                                       fontWeight: FontWeight.bold),
                                 ),
+                                Expanded(
+                                  child: Text(
+                                    'Desc: ' + snapshot['message'],
+                                    maxLines: 5,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
                               ],
                             ),
-                          ],
+                          ),
                         )
                       ],
                     ),
@@ -577,6 +587,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
               decoration: InputDecoration(hintText: 'Amount'),
               textAlign: TextAlign.center,
+              keyboardType: TextInputType.number,
 //              inputFormatters: <TextInputFormatter>[
 //                WhitelistingTextInputFormatter.digitsOnly
 //              ],
