@@ -9,8 +9,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:moneymanagerapptest3/mohak/models/transaction_message.dart';
-import 'package:moneymanagerapptest3/screens/add_transaction_screen.dart';
 
 class ChatScreen extends StatefulWidget {
   String name;
