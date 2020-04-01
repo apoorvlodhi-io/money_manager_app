@@ -94,54 +94,6 @@ class AboutPage extends StatelessWidget {
                       TextSpan(
                         text: "About text to be added :)",
                       ),
-//                      TextSpan(
-//                        text: "The History of Everything is built with ",
-//                      ),
-//                      TextSpan(
-//                          text: "Flutter",
-//                          style: TextStyle(
-//                              fontWeight: FontWeight.bold,
-//                              decoration: TextDecoration.underline),
-//                          recognizer: TapGestureRecognizer()
-//                            ..onTap =
-//                                () => _launchUrl("https://www.flutter.io")),
-//                      TextSpan(
-//                        text: " by ",
-//                      ),
-//                      TextSpan(
-//                          text: "2Dimensions",
-//                          style: TextStyle(
-//                              fontWeight: FontWeight.bold,
-//                              decoration: TextDecoration.underline),
-//                          recognizer: TapGestureRecognizer()
-//                            ..onTap = () =>
-//                                _launchUrl("https://www.2dimensions.com")),
-//                      TextSpan(
-//                        text:
-//                            ". The graphics and animations were created using tools by ",
-//                      ),
-//                      TextSpan(
-//                          text: "2Dimensions",
-//                          style: TextStyle(
-//                              fontWeight: FontWeight.bold,
-//                              decoration: TextDecoration.underline),
-//                          recognizer: TapGestureRecognizer()
-//                            ..onTap = () =>
-//                                _launchUrl("https://www.2dimensions.com")),
-//                      TextSpan(
-//                        text: ".\n\nInspired by the Kurzgesagt video ",
-//                      ),
-//                      TextSpan(
-//                          text: "The History & Future of Everything",
-//                          style: TextStyle(
-//                              fontWeight: FontWeight.bold,
-//                              decoration: TextDecoration.underline),
-//                          recognizer: TapGestureRecognizer()
-//                            ..onTap = () => _launchUrl(
-//                                "https://www.youtube.com/watch?v=5TbUxGZtwGI")),
-//                      TextSpan(
-//                        text: ".",
-//                      )
                     ]))
               ])),
               Text(
