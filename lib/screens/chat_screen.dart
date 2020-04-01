@@ -33,6 +33,8 @@ class _ChatScreenState extends State<ChatScreen> {
   DocumentSnapshot documentSnapshot;
   FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   String _senderuid;
+
+  String activeUserUid;
   var listItem;
   String receiverPhotoUrl, senderPhotoUrl, receiverName, senderName;
   StreamSubscription<DocumentSnapshot> subscription;
@@ -43,6 +45,8 @@ class _ChatScreenState extends State<ChatScreen> {
   String description;
   String amount;
 
+//  Timestamp messageDateTime = Timestamp().now;
+
   @override
   void initState() {
     super.initState();
@@ -51,6 +55,7 @@ class _ChatScreenState extends State<ChatScreen> {
     getUID().then((user) {
       setState(() {
         _senderuid = user.uid;
+        activeUserUid = user.uid;
         print("sender uid : $_senderuid");
         getSenderPhotoUrl(_senderuid).then((snapshot) {
           setState(() {
@@ -88,14 +93,16 @@ class _ChatScreenState extends State<ChatScreen> {
       print("Messages added to db");
     });
 
-    _collectionReference = Firestore.instance
-        .collection("messages")
-        .document(widget.receiverUid)
-        .collection(message.senderUid);
+    if (activeUserUid != _senderuid) {
+      _collectionReference = Firestore.instance
+          .collection("messages")
+          .document(widget.receiverUid)
+          .collection(message.senderUid);
 
-    _collectionReference.add(map).whenComplete(() {
-      print("Messages added to db");
-    });
+      _collectionReference.add(map).whenComplete(() {
+        print("Messages added to db");
+      });
+    }
 
     _messageController.text = "";
   }
@@ -106,8 +113,9 @@ class _ChatScreenState extends State<ChatScreen> {
       appBar: AppBar(
         title: Text(widget.name),
       ),
+      backgroundColor: Colors.white,
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Colors.teal.withOpacity(0.7),
         child: Icon(Icons.add),
         onPressed: () {
           showModalBottomSheet(
@@ -132,6 +140,7 @@ class _ChatScreenState extends State<ChatScreen> {
             : Column(
                 children: <Widget>[
                   //buildListLayout(),
+
                   ChatMessagesListWidget(),
 //                    Divider(
 //                      height: 20.0,
@@ -227,7 +236,7 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
-        color: Colors.red,
+        color: Colors.tealAccent.withOpacity(0.5),
         shape: CircularNotchedRectangle(),
         notchMargin: 5.0,
         child: Row(
@@ -254,14 +263,21 @@ class _ChatScreenState extends State<ChatScreen> {
                 ],
               ),
             ),
-            Container(
-              margin: const EdgeInsets.only(right: 20.0),
-              child: Text(
-                '₹ ' + '1500',
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 25.0,
-                    fontWeight: FontWeight.bold),
+            GestureDetector(
+              onTap: () {
+                final snackBar = SnackBar(content: Text("Tap"));
+
+                Scaffold.of(context).showSnackBar(snackBar);
+              },
+              child: Container(
+                margin: const EdgeInsets.only(right: 20.0),
+                child: Text(
+                  '₹ ' + '0.00',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 25.0,
+                      fontWeight: FontWeight.bold),
+                ),
               ),
             ),
           ],
@@ -492,9 +508,10 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Widget buildChatLayout(DocumentSnapshot snapshot) {
+//    var dateOnly = '0000-00-00';
 //    var timeStamp = snapshot['timestamp'];
 //    var messageDateTime = DateTime.parse(timeStamp.toDate().toString());
-//    var dateOnly = messageDateTime.toString().substring(0, 10);
+//    dateOnly = messageDateTime.toString().substring(0, 10);
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
@@ -513,13 +530,42 @@ class _ChatScreenState extends State<ChatScreen> {
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
+                        snapshot['senderUid'] == _senderuid
+                            ? Container(
+//                                padding: EdgeInsets.zero,
+                                width: 5.0,
+                                height: 50.0,
+                                decoration: BoxDecoration(
+                                  color: Colors.green,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10.0),
+                                  ),
+                                ),
+                              )
+                            : Container(
+                                width: 5.0,
+                                height: 50.0,
+                                decoration: BoxDecoration(
+                                  color: Colors.yellowAccent,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10.0),
+                                  ),
+                                ),
+                              ),
+                        SizedBox(
+                          width: 10.0,
+                        ),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Row(
                               children: <Widget>[
-                                CircleAvatar(),
+                                CircleAvatar(
+                                  backgroundImage:
+                                      AssetImage('assets/noimage.jpeg'),
+                                ),
                                 SizedBox(
                                   width: 20.0,
                                 ),
@@ -543,7 +589,7 @@ class _ChatScreenState extends State<ChatScreen> {
                               children: <Widget>[
                                 Text(
                                   'Date: '
-//                                  + '$dateOnly',
+//                                      + '$dateOnly',
                                   ,
                                   style: TextStyle(
                                       color: Colors.black,
@@ -707,7 +753,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 30.0,
-                      color: Colors.lightBlueAccent,
+                      color: Colors.teal,
                     ),
                   ),
                 ),
@@ -725,6 +771,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   return "Please enter message";
                 }
               },
+
               autofocus: true,
 //              controller: _messageController,
 
@@ -749,24 +796,29 @@ class _ChatScreenState extends State<ChatScreen> {
               decoration: InputDecoration(hintText: 'Description'),
               textAlign: TextAlign.center,
               onFieldSubmitted: (value) {
+                description = value;
                 _messageController.text = value;
               },
             ),
             FlatButton(
-              child: Text(
-                'Add',
-                style: TextStyle(
-                  color: Colors.white,
+                child: Text(
+                  'Add',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
                 ),
-              ),
-              color: Colors.lightBlueAccent,
-              onPressed: () {
-                if (_formKey.currentState.validate()) {
-                  sendMessage(amount);
+                color: Colors.teal,
+//              if(amount != null && description !=null)
+//              {
+                onPressed: () {
+                  if (amount != null && _formKey.currentState.validate()) {
+                    sendMessage(amount);
+                  }
+                  amount = null;
+                  Navigator.pop(context);
                 }
-                Navigator.pop(context);
-              },
-            ),
+//              }
+                ),
           ],
         ),
       ),

@@ -17,12 +17,20 @@ class _NotificationScreenState extends State<NotificationScreen> {
           title: Text('Notifications'),
         ),
         body: Center(
-          child: RaisedButton(
-            color: Colors.red,
-            child: Text('Go Back To Screen 1'),
-            onPressed: () {
-              Navigator.pop(context);
-            },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text('Here you will receive Friend Requests'),
+              Text('and transaction notifications.'),
+              Text('Features to be added sonn :)'),
+              RaisedButton(
+                color: Colors.lightBlue,
+                child: Text('Go Back To Previous Screen'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
           ),
         ),
       ),

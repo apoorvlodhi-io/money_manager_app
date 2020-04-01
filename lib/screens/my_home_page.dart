@@ -108,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: CircleAvatar(
                         backgroundImage: activeUserPhotoUrl != null
                             ? NetworkImage(activeUserPhotoUrl)
-                            : AssetImage('assets/blankimage.png'),
+                            : AssetImage('assets/noimage.jpeg'),
                         radius: 30.0,
                       ),
                     ),
@@ -139,13 +139,16 @@ class _MyHomePageState extends State<MyHomePage> {
               ListTile(
                 leading: Icon(Icons.share),
                 title: Text('Share'),
-                onTap: () => Share.share("Check out The History of Everything! " +
-                    ("https://play.google.com/store/apps/details?id=com.twodimensions.timeline")),
+                onTap: () => Share.share("Check out The Money Manager app! " +
+                    ("https://github.com/apoorvlodhi-io/money_manager_app")),
               ),
               ListTile(
                 leading: Icon(Icons.star_border),
                 title: Text('Rate Us'),
                 onTap: () {
+//                  final snackBar = SnackBar(content: Text("Tap"));
+//
+//                  Scaffold.of(context).showSnackBar(snackBar);
                   Navigator.pop(context);
                 },
               ),
@@ -245,11 +248,16 @@ class _MyHomePageState extends State<MyHomePage> {
 //                            if(usersList[index].data['uid'] != activeUserUid){}
                             ListTile(
                               leading: CircleAvatar(
-                                backgroundImage: NetworkImage(
-                                    usersList[index].data['photoUrl']),
+//                                backgroundImage: NetworkImage(
+//                                    usersList[index].data['photoUrl']),
+
+                                backgroundImage: activeUserPhotoUrl != null
+                                    ? NetworkImage(
+                                        usersList[index].data['photoUrl'])
+                                    : AssetImage('assets/blankimage.png'),
                               ),
                               trailing: Text(
-                                '₹' + '217',
+                                '₹' + '0.00',
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 20.0,

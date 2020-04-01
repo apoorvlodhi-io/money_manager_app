@@ -48,7 +48,7 @@ class MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Money Manager App",
-      theme: ThemeData(primarySwatch: Colors.red),
+      theme: ThemeData(primarySwatch: Colors.teal),
 //      initialRoute: SplashScreen.id,
       routes: {
 //        SplashScreen.id: (context) => SplashScreen(),

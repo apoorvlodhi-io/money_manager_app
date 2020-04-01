@@ -22,7 +22,7 @@ class Expenditure extends StatelessWidget {
               ),
               SizedBox(height: 5.0),
               Text(
-                '₹ ' + '217' + '.00',
+                '₹ ' + '0' + '.00',
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 30.0,

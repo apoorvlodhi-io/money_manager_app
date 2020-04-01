@@ -97,14 +97,14 @@ class AboutPage extends StatelessWidget {
 //                      TextSpan(
 //                        text: "The History of Everything is built with ",
 //                      ),
-                      TextSpan(
-                          text: "Flutter",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              decoration: TextDecoration.underline),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap =
-                                () => _launchUrl("https://www.flutter.io")),
+//                      TextSpan(
+//                          text: "Flutter",
+//                          style: TextStyle(
+//                              fontWeight: FontWeight.bold,
+//                              decoration: TextDecoration.underline),
+//                          recognizer: TapGestureRecognizer()
+//                            ..onTap =
+//                                () => _launchUrl("https://www.flutter.io")),
 //                      TextSpan(
 //                        text: " by ",
 //                      ),
@@ -145,7 +145,7 @@ class AboutPage extends StatelessWidget {
                     ]))
               ])),
               Text(
-                "Designed by",
+                "Developed by",
                 style: TextStyle(
                     fontFamily: "Roboto",
                     fontSize: 17.0,

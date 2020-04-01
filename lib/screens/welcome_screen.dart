@@ -129,9 +129,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 title: 'Continue with Google',
                 colour: Colors.white,
                 backgroundImage: Image.asset('assets/google_logo.png'),
-//                backgroundImage: Image.network(
-//                    'https://pngimg.com/uploads/google/google_PNG19635.png'),
-//                onPressed: () => authService.googleSignIn(),
                 onPressed: () {
                   signIn().then((FirebaseUser user) {
                     addDataToDb(user);
@@ -139,14 +136,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 },
               ),
               WelcomeScreenButton(
-                  title: 'Continue with Facebook',
+                  title: 'Continue with Facebook (Disabled)',
                   colour: Colors.white,
                   backgroundImage: Image.asset('assets/Facebook_Logo.png'),
 //                  backgroundImage: Image.network(
 //                      'https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png'),
                   onPressed: () {}),
               WelcomeScreenButton(
-                title: 'Continue with Email',
+                title: 'Continue with Email (Disabled)',
                 colour: Colors.white,
                 backgroundImage: Image.asset('assets/email_logo.png'),
 //                backgroundImage: Image.network(

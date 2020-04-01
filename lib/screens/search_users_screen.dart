@@ -51,8 +51,13 @@ class _SearchAppBarRecipeState extends State<SeachAppBarRecipe> {
           ],
         ),
         body: Center(
-          child: Container(
-            child: Text('Apoorv'),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text('Here you will see all registered users.'),
+              Text('You will be able to send friend requests.'),
+              Text('Full feature to be added soon'),
+            ],
           ),
         ),
       ),

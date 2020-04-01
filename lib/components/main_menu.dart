@@ -29,11 +29,11 @@ class MainMenu extends StatelessWidget {
                     children: <Widget>[
                       Material(
                         borderRadius: BorderRadius.circular(100.0),
-                        color: Colors.green.withOpacity(0.1),
+                        color: Colors.grey.withOpacity(0.1),
                         child: IconButton(
                           padding: EdgeInsets.all(15.0),
                           icon: Icon(Icons.call_received),
-                          color: Colors.green,
+                          color: Colors.grey,
                           iconSize: 30.0,
                           onPressed: () {},
                         ),
@@ -49,11 +49,11 @@ class MainMenu extends StatelessWidget {
                     children: <Widget>[
                       Material(
                         borderRadius: BorderRadius.circular(100.0),
-                        color: Colors.red.withOpacity(0.1),
+                        color: Colors.grey.withOpacity(0.1),
                         child: IconButton(
                           padding: EdgeInsets.all(15.0),
                           icon: Icon(Icons.call_made),
-                          color: Colors.red,
+                          color: Colors.grey,
                           iconSize: 30.0,
                           onPressed: () {},
                         ),
