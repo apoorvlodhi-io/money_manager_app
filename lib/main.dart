@@ -47,7 +47,7 @@ class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Money App",
+      title: "Money Manager App",
       theme: ThemeData(primarySwatch: Colors.red),
 //      initialRoute: SplashScreen.id,
       routes: {
