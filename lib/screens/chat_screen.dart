@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:moneymanagerapptest3/mohak/models/full_screen_image.dart';
 import 'package:moneymanagerapptest3/mohak/models/message.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,8 +9,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-//import 'package:moneymanagerapptest3/mohak/models/transaction_message.dart';
-//import 'package:moneymanagerapptest3/screens/add_transaction_screen.dart';
+import 'package:moneymanagerapptest3/mohak/models/transaction_message.dart';
+import 'package:moneymanagerapptest3/screens/add_transaction_screen.dart';
 
 class ChatScreen extends StatefulWidget {
   String name;
@@ -102,113 +103,255 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.name),
-        ),
-        body: Form(
-          key: _formKey,
-          child: _senderuid == null
-              ? Container(
-                  child: CircularProgressIndicator(),
-                )
-              : Column(
-                  children: <Widget>[
-                    //buildListLayout(),
-                    ChatMessagesListWidget(),
-                    Divider(
-                      height: 20.0,
+      appBar: AppBar(
+        title: Text(widget.name),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.blueAccent,
+        child: Icon(Icons.add),
+        onPressed: () {
+          showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            builder: (context) => SingleChildScrollView(
+              child: Container(
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).viewInsets.bottom),
+                child: AddTransactionScreen(),
+              ),
+            ),
+          );
+        },
+      ),
+      body: Form(
+        key: _formKey,
+        child: _senderuid == null
+            ? Container(
+                child: CircularProgressIndicator(),
+              )
+            : Column(
+                children: <Widget>[
+                  //buildListLayout(),
+                  ChatMessagesListWidget(),
+//                    Divider(
+//                      height: 20.0,
+//                      color: Colors.black,
+//                    ),
+//                  Container(
+////      height: 55.0,
+////      color: Colors.red,
+////      margin: const EdgeInsets.symmetric(horizontal: 8.0),
+//                    child: Row(
+//                      children: <Widget>[
+//                        Container(
+////            margin: const EdgeInsets.symmetric(horizontal: 4.0),
+//                          child: IconButton(
+//                            splashColor: Colors.white,
+//                            icon: Icon(
+//                              Icons.receipt,
+//                              color: Colors.black,
+//                            ),
+//                            onPressed: () {
+//                              pickImage();
+//                            },
+//                          ),
+//                        ),
+////          Flexible(
+////            child: TextFormField(
+////              validator: (String input) {
+////                if (input.isEmpty) {
+////                  return "Please enter message";
+////                }
+////              },
+////              controller: _messageController,
+////              decoration: InputDecoration(
+////                hintText: "Enter message...",
+////                labelText: "Message",
+////                border: OutlineInputBorder(
+////                  borderRadius: BorderRadius.circular(5.0),
+////                ),
+////              ),
+////              onFieldSubmitted: (value) {
+////                _messageController.text = value;
+////              },
+////            ),
+////          ),
+////          Container(
+//////            margin: const EdgeInsets.symmetric(horizontal: 4.0),
+////            child: IconButton(
+////              splashColor: Colors.white,
+////              icon: Icon(
+////                Icons.send,
+////                color: Colors.black,
+////              ),
+////              onPressed: () {
+//////                if (_formKey.currentState.validate()) {
+//////                  sendMessage();
+//////                }
+////              },
+////            ),
+////          ),
+////          VerticalDivider(),
+////          Container(
+////            margin: const EdgeInsets.symmetric(horizontal: 4.0),
+////            child: IconButton(
+////              splashColor: Colors.white,
+////              icon: Icon(
+////                Icons.add,
+////                color: Colors.black,
+////              ),
+////              onPressed: () {
+////                showModalBottomSheet(
+////                  context: context,
+////                  isScrollControlled: true,
+////                  builder: (context) => SingleChildScrollView(
+////                    child: Container(
+////                      padding: EdgeInsets.only(
+////                          bottom: MediaQuery.of(context).viewInsets.bottom),
+////                      child: AddTransactionScreen(),
+////                    ),
+////                  ),
+////                );
+////              },
+////            ),
+////          )
+//                      ],
+//                    ),
+//                  ),
+//                    ChatInputWidget(),
+//                    SizedBox(
+//                      height: 10.0,
+//                    ),
+                ],
+              ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.red,
+        shape: CircularNotchedRectangle(),
+        notchMargin: 5.0,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(
+//              height: 50.0,
+//            margin: const EdgeInsets.symmetric(horizontal: 4.0),
+              child: Row(
+                children: <Widget>[
+                  IconButton(
+                    splashColor: Colors.white,
+                    icon: Icon(
+                      Icons.receipt,
                       color: Colors.black,
                     ),
-                    ChatInputWidget(),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                  ],
-                ),
-        ));
+                    onPressed: () {
+                      pickImage();
+                    },
+                  ),
+//                  VerticalDivider(),
+                  Text('Add Receipt'),
+                ],
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(right: 20.0),
+              child: Text(
+                '₹ ' + '1500',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget ChatInputWidget() {
-    return Container(
-      height: 55.0,
-      margin: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Row(
-        children: <Widget>[
-          Container(
-//            margin: const EdgeInsets.symmetric(horizontal: 4.0),
-            child: IconButton(
-              splashColor: Colors.white,
-              icon: Icon(
-                Icons.receipt,
-                color: Colors.black,
-              ),
-              onPressed: () {
-                pickImage();
-              },
-            ),
-          ),
-          Flexible(
-            child: TextFormField(
-              validator: (String input) {
-                if (input.isEmpty) {
-                  return "Please enter message";
-                }
-              },
-              controller: _messageController,
-              decoration: InputDecoration(
-                hintText: "Enter message...",
-                labelText: "Message",
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
-              ),
-              onFieldSubmitted: (value) {
-                _messageController.text = value;
-              },
-            ),
-          ),
-          Container(
-//            margin: const EdgeInsets.symmetric(horizontal: 4.0),
-            child: IconButton(
-              splashColor: Colors.white,
-              icon: Icon(
-                Icons.send,
-                color: Colors.black,
-              ),
-              onPressed: () {
-//                if (_formKey.currentState.validate()) {
-//                  sendMessage();
-//                }
-              },
-            ),
-          ),
-          VerticalDivider(),
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 4.0),
-            child: IconButton(
-              splashColor: Colors.white,
-              icon: Icon(
-                Icons.add,
-                color: Colors.black,
-              ),
-              onPressed: () {
-                showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  builder: (context) => SingleChildScrollView(
-                    child: Container(
-                      padding: EdgeInsets.only(
-                          bottom: MediaQuery.of(context).viewInsets.bottom),
-                      child: AddTransactionScreen(),
-                    ),
-                  ),
-                );
-              },
-            ),
-          )
-        ],
-      ),
-    );
+//    return Container(
+////      height: 55.0,
+////      color: Colors.red,
+////      margin: const EdgeInsets.symmetric(horizontal: 8.0),
+//      child: Row(
+//        children: <Widget>[
+//          Container(
+////            margin: const EdgeInsets.symmetric(horizontal: 4.0),
+//            child: IconButton(
+//              splashColor: Colors.white,
+//              icon: Icon(
+//                Icons.receipt,
+//                color: Colors.black,
+//              ),
+//              onPressed: () {
+//                pickImage();
+//              },
+//            ),
+//          ),
+////          Flexible(
+////            child: TextFormField(
+////              validator: (String input) {
+////                if (input.isEmpty) {
+////                  return "Please enter message";
+////                }
+////              },
+////              controller: _messageController,
+////              decoration: InputDecoration(
+////                hintText: "Enter message...",
+////                labelText: "Message",
+////                border: OutlineInputBorder(
+////                  borderRadius: BorderRadius.circular(5.0),
+////                ),
+////              ),
+////              onFieldSubmitted: (value) {
+////                _messageController.text = value;
+////              },
+////            ),
+////          ),
+////          Container(
+//////            margin: const EdgeInsets.symmetric(horizontal: 4.0),
+////            child: IconButton(
+////              splashColor: Colors.white,
+////              icon: Icon(
+////                Icons.send,
+////                color: Colors.black,
+////              ),
+////              onPressed: () {
+//////                if (_formKey.currentState.validate()) {
+//////                  sendMessage();
+//////                }
+////              },
+////            ),
+////          ),
+////          VerticalDivider(),
+////          Container(
+////            margin: const EdgeInsets.symmetric(horizontal: 4.0),
+////            child: IconButton(
+////              splashColor: Colors.white,
+////              icon: Icon(
+////                Icons.add,
+////                color: Colors.black,
+////              ),
+////              onPressed: () {
+////                showModalBottomSheet(
+////                  context: context,
+////                  isScrollControlled: true,
+////                  builder: (context) => SingleChildScrollView(
+////                    child: Container(
+////                      padding: EdgeInsets.only(
+////                          bottom: MediaQuery.of(context).viewInsets.bottom),
+////                      child: AddTransactionScreen(),
+////                    ),
+////                  ),
+////                );
+////              },
+////            ),
+////          )
+//        ],
+//      ),
+//    );
   }
 
   Future<String> pickImage() async {
