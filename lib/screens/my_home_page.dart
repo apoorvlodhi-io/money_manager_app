@@ -256,14 +256,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                         usersList[index].data['photoUrl'])
                                     : AssetImage('assets/blankimage.png'),
                               ),
-                              trailing: Text(
-                                '₹' + '0.00',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+//                              trailing: Text(
+//                                '₹' + '0.00',
+//                                style: TextStyle(
+//                                  color: Colors.black,
+//                                  fontSize: 20.0,
+//                                  fontWeight: FontWeight.bold,
+//                                ),
+//                              ),
                               title: Text(
                                 usersList[index].data['name'],
                                 style: TextStyle(

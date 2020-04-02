@@ -82,6 +82,7 @@ class _ChatScreenState extends State<ChatScreen> {
     map = message.toMap();
 
     print("Map : ${map}");
+
     _collectionReference = Firestore.instance
         .collection("messages")
         .document(message.senderUid)
@@ -91,7 +92,7 @@ class _ChatScreenState extends State<ChatScreen> {
       print("Messages added to db");
     });
 
-    if (activeUserUid != _senderuid) {
+    if (_senderuid != widget.receiverUid) {
       _collectionReference = Firestore.instance
           .collection("messages")
           .document(widget.receiverUid)
@@ -232,7 +233,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 ],
               ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       bottomNavigationBar: BottomAppBar(
         color: Colors.tealAccent.withOpacity(0.5),
         shape: CircularNotchedRectangle(),
@@ -261,23 +262,23 @@ class _ChatScreenState extends State<ChatScreen> {
                 ],
               ),
             ),
-            GestureDetector(
-              onTap: () {
-                final snackBar = SnackBar(content: Text("Tap"));
-
-                Scaffold.of(context).showSnackBar(snackBar);
-              },
-              child: Container(
-                margin: const EdgeInsets.only(right: 20.0),
-                child: Text(
-                  '₹ ' + '0.00',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 25.0,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
+//            GestureDetector(
+//              onTap: () {
+//                final snackBar = SnackBar(content: Text("Tap"));
+//
+//                Scaffold.of(context).showSnackBar(snackBar);
+//              },
+//              child: Container(
+//                margin: const EdgeInsets.only(right: 20.0),
+//                child: Text(
+//                  '₹ ' + '0.00',
+//                  style: TextStyle(
+//                      color: Colors.black,
+//                      fontSize: 25.0,
+//                      fontWeight: FontWeight.bold),
+//                ),
+//              ),
+//            ),
           ],
         ),
       ),
