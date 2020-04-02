@@ -1,5 +1,4 @@
 
-#Not yet complete.
 # Money Manager App
 
 This is a flutter application Designed and Developed by Apoorv Lodhi.
