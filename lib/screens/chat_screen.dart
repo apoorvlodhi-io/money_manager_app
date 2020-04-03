@@ -409,15 +409,16 @@ class _ChatScreenState extends State<ChatScreen> {
     _collectionReference.add(map).whenComplete(() {
       print("Messages added to db");
     });
+    if (_senderuid != widget.receiverUid) {
+      _collectionReference = Firestore.instance
+          .collection("messages")
+          .document(widget.receiverUid)
+          .collection(_message.senderUid);
 
-    _collectionReference = Firestore.instance
-        .collection("messages")
-        .document(widget.receiverUid)
-        .collection(_message.senderUid);
-
-    _collectionReference.add(map).whenComplete(() {
-      print("Messages added to db");
-    });
+      _collectionReference.add(map).whenComplete(() {
+        print("Messages added to db");
+      });
+    }
   }
 
   void sendMessage(String amount) async {
