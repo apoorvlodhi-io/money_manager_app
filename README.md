@@ -1,6 +1,6 @@
 
 # Money Manager App
-*Not Yet Complete But Still Functioning*
+*Not Yet Complete But Still Functioning*<br/>
 This is a flutter application Designed and Developed by Apoorv Lodhi.
 This app helps you to manage your transactions and doesn't let you forget any.
 This app is a multi screen app with simple functionality but full-on custom styling.
