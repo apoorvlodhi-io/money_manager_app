@@ -1,10 +1,12 @@
 
 # Money Manager App
-*Not Yet Complete But Still Functioning*<br/>
-This is a flutter application Designed and Developed by Apoorv Lodhi.
-This app helps you to manage your transactions and doesn't let you forget any.
-This app is a multi screen app with simple functionality but full-on custom styling.
-It can run on both Android and Ios platform without any changes to the source code :)
+   *Not Yet Complete But Still Functioning*<br/>
+   An intelligent money management solution built to manage your daily expenses and Udharis. The app targets millennials, especially those living in
+   hostels and dormitories.
+   In such an environment, students tend to borrow and lend money to their batchmates who often forget to pay them back. This app lets you overcome
+   this problem by keeping a track of all your expenses and reminding you of all your pending Udhari.
+   Moreover, it lets you merge multiple Udharis into a single one to minimize the net flow of money between users by actively scanning all your Udhari!
+   No more messy bill splits!
 # Screenshots
   |<img src="https://raw.githubusercontent.com/apoorvlodhi-io/money_manager_app/master/Screenshots/splash_screen.jpeg" height="250">
   <img src="https://raw.githubusercontent.com/apoorvlodhi-io/money_manager_app/master/Screenshots/login_page.jpeg" height="250">
