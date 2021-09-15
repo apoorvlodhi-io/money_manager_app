@@ -1,5 +1,5 @@
 
-# Money Manager App
+# Walley (Money Manager App)
    An intelligent money management solution built to manage your daily expenses and Udharis. The app targets millennials, especially those living in
    hostels and dormitories.<br>
    In such an environment, students tend to borrow and lend money to their batchmates who often forget to pay them back. This app lets you overcome
